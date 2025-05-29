@@ -1,5 +1,6 @@
-Leonardo Zani - 10436430
-Gabriel Apolinário - 10436453
+Leonardo Zani - 10436430 e Gabriel Apolinário - 10436453
+
+
 
 Explicaçao sobre a execuçao do codigo da clinica:
 
