@@ -11,14 +11,14 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet responsável apenas por redirecionar para a página de login.
  */
-@WebServlet("/login")
+@WebServlet("/login") // Mapeia o servlet para a URL /login
 public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L; // Versão para serialização
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Encaminha para o formulário de login
+        // Encaminha para o formulário de login (index.jsp)
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }
