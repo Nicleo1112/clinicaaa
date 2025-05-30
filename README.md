@@ -2,7 +2,7 @@ Leonardo Zani - 10436430 e Gabriel Apolinário - 10436453
 
 
 
-Explicaçao sobre a execuçao do codigo da clinica:
+Explicação sobre a execução do codigo da clinica:
 
 Instalar o Maven.
 
