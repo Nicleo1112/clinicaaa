@@ -19,7 +19,7 @@ public class UsuarioDAO {
      * @return Objeto Usuario encontrado ou null se não encontrado.
      */
     public static Usuario buscarUsuario(String email, String senha, String realPathBase) {
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) { // Obtém conexão com banco
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) { // Obtém a conexão com banco
             String sql = "SELECT id, nome, tipo FROM usuarios WHERE email = ? AND senha = ?"; // Query para buscar usuário
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara a consulta SQL
             stmt.setString(1, email); // Seta o parâmetro 1 (email)
@@ -39,7 +39,7 @@ public class UsuarioDAO {
             e.printStackTrace(); // Imprime stacktrace para debugging
             throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e); // Relança exceção como Runtime
         }
-        return null; // Retorna null se não encontrou usuário
+        return null; // Retorna null cado acabe nao encontrando o usuário
     }
 
     /**
@@ -55,7 +55,7 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery(); // Executa a consulta
 
             while (rs.next()) { // Itera sobre cada resultado
-                Usuario paciente = new Usuario(); // Cria objeto paciente
+                Usuario paciente = new Usuario(); // Cria o objeto paciente
                 // Define campos verificando se não são nulos para evitar NullPointerException
                 paciente.setId(rs.getInt("id")); 
                 paciente.setNome(rs.getString("nome") != null ? rs.getString("nome") : "");
@@ -79,10 +79,10 @@ public class UsuarioDAO {
         List<Usuario> medicos = new ArrayList<>(); // Cria lista para armazenar médicos
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) { // Obtém conexão
             String sql = "SELECT id, nome, email, cpf FROM usuarios WHERE tipo = 'medico'"; // Query para médicos
-            PreparedStatement stmt = conn.prepareStatement(sql); // Prepara consulta
+            PreparedStatement stmt = conn.prepareStatement(sql); // Prepara a consulta
             ResultSet rs = stmt.executeQuery(); // Executa consulta
-            while (rs.next()) { // Itera resultados
-                Usuario medico = new Usuario(); // Cria objeto médico
+            while (rs.next()) { // Itera os resultados
+                Usuario medico = new Usuario(); // Cria o objeto médico
                 medico.setId(rs.getInt("id")); // Seta id
                 medico.setNome(rs.getString("nome")); // Seta nome
                 medico.setEmail(rs.getString("email")); // Seta email
@@ -92,7 +92,7 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar médicos.", e); // Lança exceção em erro
         }
-        return medicos; // Retorna lista de médicos
+        return medicos; // Retorna a lista de médicos
     }
 
     /**
@@ -107,7 +107,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara consulta
             stmt.setString(1, email); // Seta parâmetro email
             ResultSet rs = stmt.executeQuery(); // Executa consulta
-            return rs.next(); // Retorna true se existe pelo menos um resultado
+            return rs.next(); // Retorna true se existir pelo menos um resultado
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao verificar email.", e); // Lança exceção se erro
         }
@@ -117,18 +117,18 @@ public class UsuarioDAO {
      * Cadastra um novo paciente no banco de dados.
      */
     public static void cadastrarPaciente(String nome, String email, String senha, String cpf, String celular, String realPathBase) {
-        if (emailExiste(email, realPathBase)) { // Verifica se email já existe
+        if (emailExiste(email, realPathBase)) { // Verifica se o email já existe
             throw new RuntimeException("Já existe um paciente com este e-mail cadastrado."); // Lança erro se já existe
         }
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) { // Obtém conexão
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) { // Obtém a conexão
             String sql = "INSERT INTO usuarios (nome, email, senha, cpf, celular, tipo) VALUES (?, ?, ?, ?, ?, 'paciente')"; // Query para inserir paciente
-            PreparedStatement stmt = conn.prepareStatement(sql); // Prepara comando
+            PreparedStatement stmt = conn.prepareStatement(sql); // Prepara o comando
             stmt.setString(1, nome); // Seta nome
             stmt.setString(2, email); // Seta email
             stmt.setString(3, senha); // Seta senha
             stmt.setString(4, cpf); // Seta cpf
             stmt.setString(5, celular); // Seta celular
-            stmt.executeUpdate(); // Executa inserção
+            stmt.executeUpdate(); // Executa a inserção
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar paciente.", e); // Lança exceção em erro
         }
@@ -148,7 +148,7 @@ public class UsuarioDAO {
             stmt.setString(2, email); // Seta email
             stmt.setString(3, senha); // Seta senha
             stmt.setString(4, crm); // Seta crm (no campo cpf)
-            stmt.executeUpdate(); // Executa inserção
+            stmt.executeUpdate(); // Executa a inserção
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar médico.", e); // Lança exceção em erro
         }
@@ -163,8 +163,8 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara comando
             stmt.setInt(1, id); // Seta id
             ResultSet rs = stmt.executeQuery(); // Executa consulta
-            if (rs.next()) { // Se encontrou paciente
-                Usuario paciente = new Usuario(); // Cria objeto
+            if (rs.next()) { // Caso encontre o paciente
+                Usuario paciente = new Usuario(); // Cria o objeto
                 // Seta os atributos com verificação para evitar null
                 paciente.setId(rs.getInt("id"));
                 paciente.setNome(rs.getString("nome") != null ? rs.getString("nome") : "");
@@ -199,7 +199,7 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar médico por ID.", e); // Exceção personalizada
         }
-        return null; // Retorna null se não encontrou
+        return null; // Retorna null se não encontrar nada 
     }
 
     /**
@@ -225,7 +225,7 @@ public class UsuarioDAO {
                 stmt.setString(4, celular); // Seta celular
                 stmt.setInt(5, id); // Seta id
             }
-            stmt.executeUpdate(); // Executa atualização
+            stmt.executeUpdate(); // Executa a atualização
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar paciente.", e); // Exceção personalizada
         }
@@ -252,7 +252,7 @@ public class UsuarioDAO {
                 stmt.setString(3, crm); // Seta crm
                 stmt.setInt(4, id); // Seta id
             }
-            stmt.executeUpdate(); // Executa atualização
+            stmt.executeUpdate(); // Executa a atualização
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar médico.", e); // Exceção personalizada
         }
@@ -266,7 +266,7 @@ public class UsuarioDAO {
             String sql = "DELETE FROM usuarios WHERE id = ? AND tipo = 'paciente'"; // Query para deletar paciente
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara comando
             stmt.setInt(1, id); // Seta id
-            stmt.executeUpdate(); // Executa deleção
+            stmt.executeUpdate(); // Executa a deleção
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir paciente.", e); // Exceção personalizada
         }
@@ -280,7 +280,7 @@ public class UsuarioDAO {
             String sql = "DELETE FROM usuarios WHERE id = ? AND tipo = 'medico'"; // Query para deletar médico
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara comando
             stmt.setInt(1, id); // Seta id
-            stmt.executeUpdate(); // Executa deleção
+            stmt.executeUpdate(); // Executa a deleção
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir médico.", e); // Exceção personalizada
         }
