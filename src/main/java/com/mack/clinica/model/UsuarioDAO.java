@@ -27,11 +27,11 @@ public class UsuarioDAO {
 
             ResultSet rs = stmt.executeQuery(); // Executa a consulta e obtém o resultado
 
-            if (rs.next()) { // Se encontrou usuário com email e senha informados
-                Usuario usuario = new Usuario(); // Cria objeto Usuario
-                usuario.setId(rs.getInt("id")); // Seta id
-                usuario.setNome(rs.getString("nome")); // Seta nome
-                usuario.setTipo(rs.getString("tipo")); // Seta tipo (paciente, médico, etc)
+            if (rs.next()) { // Se encontrou usuário com email e senha informados - cria objeto e preenche com os dados da consulta
+                Usuario usuario = new Usuario(); // Cria um novo objeto Usuario
+                usuario.setId(rs.getInt("id")); // Seta o id, Atribui ao paciente o valor do ID retornado pelo banco de dados
+                usuario.setNome(rs.getString("nome")); // Seta o nome, Atribui ao paciente o Nome retornado pelo banco de dados
+                usuario.setTipo(rs.getString("tipo")); // Seta o tipo (paciente, médico, etc)
                 return usuario; // Retorna o objeto usuário
             }
 
@@ -39,7 +39,7 @@ public class UsuarioDAO {
             e.printStackTrace(); // Imprime stacktrace para debugging
             throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e); // Relança exceção como Runtime
         }
-        return null; // Retorna null caso acabe não encontrando o usuário
+        return null; // Retorna null Caso o usuário não exista ou email/senha estejam incorretos
     }
 
     /**
@@ -82,10 +82,10 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(sql); // Prepara a consulta
             ResultSet rs = stmt.executeQuery(); // Executa consulta
             while (rs.next()) { // Itera os resultados
-                Usuario medico = new Usuario(); // Cria o objeto médico
-                medico.setId(rs.getInt("id")); // Seta id
-                medico.setNome(rs.getString("nome")); // Seta nome
-                medico.setEmail(rs.getString("email")); // Seta email
+                Usuario medico = new Usuario(); // Cria o novo objeto médico
+                medico.setId(rs.getInt("id")); // Seta id , Atribui ao Medico o valor do id retornado pelo banco de dados
+                medico.setNome(rs.getString("nome")); // Seta Nome, Atribui ao Medico o Nome retornado pelo banco de dados
+                medico.setEmail(rs.getString("email")); // Seta email, Atribui ao Medico o email retornado pelo banco de dados 
                 medico.setCpf(rs.getString("cpf")); // Seta cpf (usado como crm aqui)
                 medicos.add(medico); // Adiciona à lista
             }
