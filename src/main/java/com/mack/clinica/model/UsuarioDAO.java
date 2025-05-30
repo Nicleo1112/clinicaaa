@@ -86,7 +86,7 @@ public class UsuarioDAO {
                 medico.setId(rs.getInt("id")); // Seta id , Atribui ao Medico o valor do id retornado pelo banco de dados
                 medico.setNome(rs.getString("nome")); // Seta Nome, Atribui ao Medico o Nome retornado pelo banco de dados
                 medico.setEmail(rs.getString("email")); // Seta email, Atribui ao Medico o email retornado pelo banco de dados 
-                medico.setCpf(rs.getString("cpf")); // Seta cpf (usado como crm aqui), Atribui ao paciente o Cpf retornado pelo banco de dados
+                medico.setCpf(rs.getString("cpf")); // Seta cpf (usado como crm aqui), Atribui ao medico o Cpf retornado pelo banco de dados
                 medicos.add(medico); // Adiciona à lista
             }
         } catch (SQLException e) {
