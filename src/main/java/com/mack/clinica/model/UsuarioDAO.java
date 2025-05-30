@@ -39,7 +39,7 @@ public class UsuarioDAO {
             e.printStackTrace(); // Imprime stacktrace para debugging
             throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e); // Relança exceção como Runtime
         }
-        return null; // Retorna null cado acabe nao encontrando o usuário
+        return null; // Retorna null caso acabe não encontrando o usuário
     }
 
     /**
