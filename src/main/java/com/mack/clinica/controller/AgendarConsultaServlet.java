@@ -38,7 +38,7 @@ public class AgendarConsultaServlet extends HttpServlet {  // Declara a classe q
         request.getRequestDispatcher("/agendar_consulta.jsp").forward(request, response);
     }
     
-    @Override  // Sobrescreve o método doPost para tratar requisições POST
+    @Override  // Sobrescreve o método doPost para tratar as requisições POST
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -53,7 +53,7 @@ public class AgendarConsultaServlet extends HttpServlet {  // Declara a classe q
 
             // Verifica se o paciente está autenticado (id não nulo)
             if (pacienteIdObj == null) {
-                // Se não estiver autenticado, informa no console e redireciona para a página de login
+                // Se não estiver autenticado, sera informado no console e redireciona para a página de login
                 System.out.println("Paciente não autenticado. Redirecionando para login.");
                 response.sendRedirect("index.jsp");
                 return;  // Para execução do método após redirecionamento
